@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mirna Ashri · Chemoinformatics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff5f8; --card:#ffffff; --ink:#3b1e2b; --muted:#8a6577;
+  --rose:#e8588d; --deep:#b1316a; --blush:#ffd9e6; --petal:#fbbfd4; --line:#f6d3e0;
+  --serif:'Fraunces',Georgia,serif; --sans:'Figtree',system-ui,sans-serif;
+  /* test-tube cursor (hotspot at the tube's mouth) */
+  --tube:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-35 16 16)'%3E%3Cpath d='M11 3h10v2h-1.5v17a3.5 3.5 0 0 1-7 0V5H11z' fill='white' stroke='%23b1316a' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M12.5 15h7v7a3.5 3.5 0 0 1-7 0z' fill='%23e8588d'/%3E%3Ccircle cx='15' cy='12' r='1' fill='%23e8588d'/%3E%3C/g%3E%3C/svg%3E") 7 5, auto;
+  --flask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M12 3h8v2h-1.5v7l6.5 12a2.5 2.5 0 0 1-2.2 3.7H9.2A2.5 2.5 0 0 1 7 24l6.5-12V5H12z' fill='white' stroke='%23b1316a' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M10.5 20h11l3 5.5a1 1 0 0 1-.9 1.5H8.4a1 1 0 0 1-.9-1.5z' fill='%23e8588d'/%3E%3C/svg%3E") 16 4, pointer;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;cursor:var(--tube);min-height:100vh;
+  background-image:radial-gradient(circle at 12% 8%,#ffe3ee 0,transparent 38%),radial-gradient(circle at 92% 90%,#ffd1e3 0,transparent 35%);background-attachment:fixed}
+a,button,.tab{cursor:var(--flask)}
+a{color:var(--deep);text-underline-offset:3px}
+
+/* faint hexagon (benzene) texture */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97'%3E%3Cpath d='M28 2l26 15v30L28 62 2 47V17z M28 62v33 M2 47L0 48 M54 47l2 1' fill='none' stroke='%23f3b9cf' stroke-width='1' opacity='.55'/%3E%3C/svg%3E")}
+
+.shell{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 22px 70px}
+
+/* hero */
+.hero{padding:64px 0 30px;display:flex;gap:34px;align-items:center;flex-wrap:wrap}
+.avatar{width:132px;height:132px;border-radius:50%;background:linear-gradient(135deg,var(--petal),var(--rose));display:grid;place-items:center;
+  font-family:var(--serif);font-size:46px;color:#fff;border:5px solid #fff;box-shadow:0 10px 30px rgba(232,88,141,.28);overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;margin:0;letter-spacing:-.02em}
+.hero .role{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--deep);margin:10px 0 2px}
+.hero .where{color:var(--muted);margin:0 0 14px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chips a{padding:7px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line);text-decoration:none;font-weight:500;font-size:.92rem;transition:background .2s,color .2s}
+.chips a:hover{background:var(--rose);color:#fff;border-color:var(--rose)}
+
+/* tabs */
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:12px 4px;margin:0 -4px 8px;background:linear-gradient(var(--bg) 80%,transparent);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid transparent;background:transparent;color:var(--muted);font:500 .95rem var(--sans);padding:9px 16px;border-radius:999px;transition:all .2s}
+.tab:hover{background:var(--blush);color:var(--deep)}
+.tab[aria-selected="true"]{background:var(--rose);color:#fff;box-shadow:0 6px 16px rgba(232,88,141,.32)}
+.tab:focus-visible,a:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
+
+/* panels */
+.panel{display:none;animation:fill .45s ease}
+.panel.on{display:block}
+@keyframes fill{from{clip-path:inset(100% 0 0 0);opacity:.2}to{clip-path:inset(0);opacity:1}} /* liquid filling the tube */
+h2{font-family:var(--serif);font-weight:600;font-size:2rem;margin:22px 0 18px}
+h3{font-family:var(--serif);font-weight:600;font-size:1.2rem;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px 26px;margin-bottom:16px;box-shadow:0 8px 24px rgba(177,49,106,.06)}
+.card .head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.date{color:var(--deep);font-weight:500;font-size:.9rem;white-space:nowrap}
+.sub{color:var(--muted);margin:2px 0 10px;font-style:italic;font-family:var(--serif)}
+.card ul{margin:8px 0 0;padding-left:20px}
+.card li{margin:5px 0;max-width:70ch}
+.card li::marker{color:var(--rose)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
+.tag{background:var(--blush);color:var(--deep);border-radius:999px;padding:3px 11px;font-size:.8rem;font-weight:500}
+.badge{display:inline-block;background:var(--deep);color:#fff;border-radius:999px;padding:2px 11px;font-size:.78rem;margin-left:8px;vertical-align:middle}
+.lead{font-family:var(--serif);font-size:1.18rem;line-height:1.75;max-width:68ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.grid .card{margin:0}
+.stat{font-family:var(--serif);font-size:2.2rem;color:var(--rose);line-height:1}
+.empty{border:2px dashed var(--petal);border-radius:22px;padding:30px;color:var(--muted);text-align:center;background:#fff9fb}
+footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
+
+/* bubbles trailing the cursor */
+.bubble{position:fixed;z-index:50;pointer-events:none;border-radius:50%;border:1.5px solid var(--rose);background:rgba(255,255,255,.55);animation:rise 1s ease-out forwards}
+@keyframes rise{to{transform:translateY(-46px) scale(.3);opacity:0}}
+@media (hover:none){.bubble{display:none}}
+@media (prefers-reduced-motion:reduce){.panel{animation:none}.bubble{display:none}html{scroll-behavior:auto}}
+@media (max-width:600px){.hero{padding-top:36px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero">
+  <div class="avatar" aria-label="Photo placeholder"><!-- replace with: <img src="me.jpg" alt="Mirna Ashri"> -->MA</div>
+  <div>
+    <h1>Mirna Ashri</h1>
+    <p class="role">Erasmus Mundus M.Sc. student in Chemoinformatics+</p>
+    <p class="where">NOVA University Lisbon &amp; University of Strasbourg</p>
+    <div class="chips">
+      <a href="mailto:mirnamernanni@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener">GitHub</a>
+      <a href="cv.pdf">CV (PDF)</a>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections"></nav>
+
+<main>
+
+<section class="panel" id="about" data-title="About">
+  <h2>About</h2>
+  <p class="lead">Erasmus Mundus Joint Master's student in Chemoinformatics+ (NOVA University Lisbon &amp; University of Strasbourg) with a BSc in Pharmaceutical Sciences. My background spans quantum chemistry, DFT calculations and physical organic chemistry, combined with hands-on machine learning: QSAR/QSPR modelling, representation comparison, validation and applicability-domain analysis, and Python workflows for atomistic and molecular data.</p>
+  <p class="lead">Experimental training in synthesis and characterisation (NMR, ATR-FTIR, DSC) helps me connect computed quantities to measurable behaviour. I am motivated to pursue a PhD in data-efficient machine learning and DFT for the design of sustainable catalytic materials.</p>
+  <div class="grid" style="margin-top:22px">
+    <div class="card"><div class="stat">3.96/4.00</div>BSc GPA, ranked 7th of 850 students</div>
+    <div class="card"><div class="stat">~9,980</div>compounds in my solubility-prediction project</div>
+    <div class="card"><div class="stat">8</div>languages, from native Arabic to HSK1 Mandarin</div>
+  </div>
+</section>
+
+<section class="panel" id="education" data-title="Education">
+  <h2>Education &amp; Fellowships</h2>
+  <div class="card">
+    <div class="head"><h3>ChEmoInformatics+ Erasmus Mundus Joint Master</h3><span class="date">Sep 2025 – Jun 2027</span></div>
+    <p class="sub">NOVA University Lisbon &amp; University of Strasbourg · Lisbon–Strasbourg track · Specialised in Organic Chemistry</p>
+    <div class="tags"><span class="tag">Quantum Chemistry</span><span class="tag">Physical Organic Chemistry</span><span class="tag">Computational Chemistry</span><span class="tag">Molecular Modelling</span><span class="tag">Machine Learning</span><span class="tag">Organic Chemistry</span><span class="tag">Organic Synthesis</span><span class="tag">Medicinal Chemistry</span><span class="tag">Analytical Bio-organic Chemistry</span></div>
+    <ul><li>Erasmus Mundus Joint Master Scholarship.</li></ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>BSc in Pharmaceutical Sciences</h3><span class="date">Sep 2018 – Aug 2023</span></div>
+    <p class="sub">Mansoura University, Egypt</p>
+    <ul><li>GPA 3.96/4.00, ranked 7th among 850 students.</li><li>Full tuition waiver during the final three years.</li></ul>
+  </div>
+</section>
+
+<section class="panel" id="research" data-title="Research">
+  <h2>Research Experience</h2>
+  <div class="card">
+    <div class="head"><h3>Research Intern, Computer-Aided Drug Design (CADD)</h3><span class="date">May 2026 – Present</span></div>
+    <p class="sub">LAQV-REQUIMTE, NOVA FCT</p>
+    <ul>
+      <li>Develop QSAR and machine-learning models to predict molecular activity within a computer-aided molecular design project.</li>
+      <li>Compare molecular descriptors, fingerprints and representations, and analyse chemical space to understand how representation shapes what a model can learn.</li>
+      <li>Assess model reliability through validation and applicability-domain analysis, identifying where predictions can and cannot be trusted.</li>
+      <li>Run virtual screening and molecular docking to study molecular interactions and prioritise candidate compounds.</li>
+      <li>Build reproducible Python/RDKit workflows for data preparation, modelling, validation and analysis.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Research Intern, Pharmaceutical Ionic Liquids</h3><span class="date">Jun 2026 – Jul 2026</span></div>
+    <p class="sub">LAQV-REQUIMTE, NOVA FCT</p>
+    <ul>
+      <li>Synthesised and characterised pharmaceutical ionic liquids based on ammonium/morpholinium cations and carboxylate/amino-acid anions.</li>
+      <li>Applied NMR, ATR-FTIR and DSC to characterise molecular structure and physicochemical properties.</li>
+      <li>Investigated molecular systems designed to modify the solubility and transport behaviour of poorly water-soluble compounds.</li>
+      <li>Connected experimental characterisation with molecular structure and physicochemical behaviour.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Master's Thesis: Computational Fragment Screening <span class="badge">Planned</span></h3><span class="date">Jan 2027 – Jun 2027</span></div>
+    <p class="sub">University of Münster, Germany</p>
+    <ul>
+      <li>Computational and analytical investigation of a fragment library developed for affinity-mass-spectrometry applications.</li>
+      <li>Planned work includes screening molecular fragments and analysing their interactions with target systems.</li>
+      <li>The direction combines analytical chemistry, molecular structure analysis, computational screening and mechanistic interpretation.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel" id="projects" data-title="Projects">
+  <h2>Projects</h2>
+  <div class="card">
+    <h3>Aqueous Solubility Prediction Using Hybrid Molecular Representations</h3>
+    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">Streamlit</span></div>
+    <ul>
+      <li>Built machine-learning models for aqueous solubility using approximately 9,980 compounds.</li>
+      <li>Combined Morgan fingerprints with physicochemical descriptors to study the effect of molecular representation on prediction.</li>
+      <li>Trained and evaluated Random Forest and XGBoost models and analysed structure–property relationships.</li>
+      <li>Developed a Streamlit app for molecular property prediction from SMILES input.</li>
+      <li>Presented as a poster at the 2026 Strasbourg Summer School on Chemoinformatics.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Molecular Data Machine Learning: Kaggle competition (MMLI / UIUC)</h3>
+    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">QSAR</span><span class="tag">Feature selection</span><span class="tag">Symbolic regression</span></div>
+    <ul>
+      <li>Predicted experimental photostability lifetimes (T80) from ~150 molecular features using Ridge regression and Random Forest.</li>
+      <li>Assessed generalisation with repeated K-fold cross-validation and MSLE; compared full and reduced feature sets (SelectKBest).</li>
+      <li>Investigated feature relevance with correlation analysis, permutation importance, Lasso and symbolic regression to obtain interpretable structure–property relationships.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Enveda CASMI 2026: Molecule ID from Mass Spectra (Kaggle) <span class="badge">In progress</span></h3>
+    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">LC-MS/MS</span><span class="tag">Machine learning</span><span class="tag">Structure prediction</span></div>
+    <ul><li>Machine-learning models for predicting molecular structures from tandem mass spectra.</li></ul>
+  </div>
+</section>
+
+<section class="panel" id="publications" data-title="Publications">
+  <h2>Publications</h2>
+  <div class="card">
+    <h3>Poster presentation</h3>
+    <p class="sub">2026 Strasbourg Summer School on Chemoinformatics</p>
+    <ul><li>Aqueous solubility prediction using hybrid molecular representations.</li></ul>
+  </div>
+  <div class="empty">Journal articles will be listed here as they are published.</div>
+</section>
+
+<section class="panel" id="work" data-title="Work experience">
+  <h2>Professional Experience</h2>
+  <div class="card">
+    <div class="head"><h3>Teaching and Research Assistant of Analytical Chemistry</h3><span class="date">Jan 2024 – Present</span></div>
+    <p class="sub">Faculty of Pharmaceutical Sciences, Mansoura University, Egypt</p>
+    <ul>
+      <li>Contributed to research in pharmaceutical and analytical chemistry, supporting experimental design, data analysis and interpretation of findings.</li>
+      <li>Applied analytical methods for the characterisation of pharmaceutical and biologically relevant compounds.</li>
+      <li>Supported undergraduate teaching and mentoring, fostering interdisciplinary scientific thinking and problem-solving.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Vice-President</h3><span class="date">Aug 2024 – Jun 2026</span></div>
+    <p class="sub">Bringing Europeans Together Association (BETA Europe) · Remote, Belgium</p>
+    <ul><li>Led an international team of volunteers in a European association, working across countries and time zones.</li></ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Diversity Coordinator, Ex-Secretary-General and Ex-Partnerships Manager</h3><span class="date">Feb 2022 – Nov 2024</span></div>
+    <p class="sub">Model European Union Strasbourg (MEUS), BETA France · Remote, France</p>
+    <ul><li>Held successive responsibilities coordinating an international event team, managing external partnerships and overseeing the organisation's operations.</li></ul>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Research Fellow</h3><span class="date">Feb – Jun 2024</span></div>
+    <p class="sub">Oath for Sustainability Network, Climate and Health Research Lab · Remote, Africa</p>
+  </div>
+</section>
+
+<section class="panel" id="podcasts" data-title="Podcasts">
+  <h2>Podcasts</h2>
+  <div class="card"><h3>MEUStream Podcast Series</h3><p class="sub">Host</p>Podcasting with Members of the European Parliament.</div>
+  <div class="card"><div class="head"><h3>Coucou De France</h3><span class="date">19 Sep 2024</span></div><p class="sub">Guest</p>My Journey with the French Language, Episode II.</div>
+  <div class="card"><div class="head"><h3>Radio La Voce Di Arda</h3><span class="date">29 Jul 2022</span></div><p class="sub">Host</p>Tolkien Course, Episode XIX. Featured on Apple Podcasts.</div>
+</section>
+
+<section class="panel" id="languages" data-title="Languages">
+  <h2>Languages</h2>
+  <div class="grid">
+    <div class="card"><h3>Native</h3><div class="tags"><span class="tag">Arabic</span></div></div>
+    <div class="card"><h3>Advanced · C1</h3><div class="tags"><span class="tag">English</span><span class="tag">French</span><span class="tag">German</span></div></div>
+    <div class="card"><h3>Intermediate · B1</h3><div class="tags"><span class="tag">Spanish</span><span class="tag">Italian</span></div></div>
+    <div class="card"><h3>Basic</h3><div class="tags"><span class="tag">Turkish A2</span><span class="tag">Portuguese A2</span><span class="tag">Mandarin HSK1</span></div></div>
+  </div>
+</section>
+
+<section class="panel" id="software" data-title="Software">
+  <h2>Software Proficiency</h2>
+  <div class="grid">
+    <div class="card"><h3>Computational chemistry software</h3><div class="tags"><span class="tag">ORCA</span><span class="tag">MOPAC</span><span class="tag">AutoDock Vina</span><span class="tag">AMBER</span><span class="tag">GaussView</span><span class="tag">PyMOL</span><span class="tag">Open Babel</span><span class="tag">DataWarrior</span><span class="tag">YASARA</span></div></div>
+    <div class="card"><h3>Computational chemistry methods</h3><div class="tags"><span class="tag">DFT</span><span class="tag">Molecular modelling</span><span class="tag">Docking</span><span class="tag">Molecular dynamics</span><span class="tag">QSAR/QSPR</span><span class="tag">Descriptors &amp; fingerprints</span><span class="tag">Molecular similarity</span><span class="tag">Chemical-space analysis</span><span class="tag">Applicability domain</span><span class="tag">Virtual screening</span></div></div>
+    <div class="card"><h3>Programming &amp; data science</h3><div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">SciPy</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Matplotlib</span><span class="tag">Jupyter</span><span class="tag">SQL</span><span class="tag">Bash</span></div></div>
+    <div class="card"><h3>Experimental chemistry</h3><div class="tags"><span class="tag">Ionic liquid synthesis &amp; purification</span><span class="tag">NMR</span><span class="tag">ATR-FTIR</span><span class="tag">DSC</span><span class="tag">Spectrofluorimetry</span><span class="tag">Pharmaceutical analysis</span></div><p class="sub" style="margin-top:10px">Coursework knowledge: HRMS, HPLC, X-ray crystallography.</p></div>
+    <div class="card"><h3>Tools &amp; development</h3><div class="tags"><span class="tag">GitHub</span><span class="tag">Linux</span><span class="tag">Conda</span><span class="tag">Streamlit</span></div></div>
+  </div>
+</section>
+
+<section class="panel" id="awards" data-title="Awards">
+  <h2>Awards &amp; Recognitions</h2>
+  <div class="card"><div class="head"><h3>Ideal Student Competition, All Egyptian Universities</h3><span class="date">2022</span></div><p class="sub">Third place</p></div>
+  <div class="card"><div class="head"><h3>Al-Abakera Families Program Show, Season 2</h3><span class="date">2020</span></div><p class="sub">First place</p></div>
+  <div class="card"><div class="head"><h3>Poster presenter</h3><span class="date">2026</span></div><p class="sub">Strasbourg Summer School on Chemoinformatics</p></div>
+</section>
+
+<section class="panel" id="blog" data-title="Blog">
+  <h2>Personal Blog</h2>
+  <div class="empty">Notes on chemoinformatics, DFT, machine learning and life across Lisbon and Strasbourg are on the way.<br><small>Add a post by copying a <code>.card</code> block here, or link a Markdown/Jekyll blog.</small></div>
+</section>
+
+<section class="panel" id="contact" data-title="Contact">
+  <h2>Contact</h2>
+  <div class="grid">
+    <div class="card"><h3>Email</h3><p><a href="mailto:mirnamernanni@gmail.com">mirnamernanni@gmail.com</a><br><a href="mailto:m.ashri@campus.fct.unl.pt">m.ashri@campus.fct.unl.pt</a><br><a href="mailto:mirna.ashri@etu.unistra.fr">mirna.ashri@etu.unistra.fr</a></p></div>
+    <div class="card"><h3>Elsewhere</h3><p><a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a><br><a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener">GitHub</a><br><a href="cv.pdf">Download CV (PDF)</a></p></div>
+    <div class="card"><h3>Phone</h3><p>+351 963 328 733</p></div>
+  </div>
+</section>
+
+</main>
+<footer>© <span id="yr"></span> Mirna Ashri</footer>
+</div>
+
+<script>
+const panels=[...document.querySelectorAll('.panel')], nav=document.querySelector('.tabs');
+panels.forEach(p=>{
+  const b=document.createElement('button');
+  b.className='tab';b.role='tab';b.textContent=p.dataset.title;b.dataset.id=p.id;
+  b.onclick=()=>show(p.id);nav.appendChild(b);
+});
+function show(id){
+  if(!document.getElementById(id))id='about';
+  panels.forEach(p=>p.classList.toggle('on',p.id===id));
+  nav.querySelectorAll('.tab').forEach(b=>{
+    const on=b.dataset.id===id;b.setAttribute('aria-selected',on);
+    if(on)b.scrollIntoView({block:'nearest',inline:'center'});
+  });
+  history.replaceState(null,'','#'+id);
+}
+show(location.hash.slice(1)||'about');
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// bubbles that fizz behind the test-tube cursor
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  let last=0;
+  addEventListener('mousemove',e=>{
+    const t=Date.now();if(t-last<70)return;last=t;
+    const s=5+Math.random()*9,b=document.createElement('span');
+    b.className='bubble';
+    b.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX+Math.random()*10-2}px;top:${e.clientY+Math.random()*10+8}px`;
+    document.body.appendChild(b);setTimeout(()=>b.remove(),1000);
+  });
+}
+</script>
+</body>
+</html>
