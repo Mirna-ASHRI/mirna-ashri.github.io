@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mirna Ashri · Chemoinformatics/Computational Chemistry/ Analytical Chemistry/ Medicinal Organic Chemistry</title>
+<title>Mirna Ashri · Chemoinformatics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
   --bg:#fff5f8; --card:#ffffff; --ink:#3b1e2b; --muted:#8a6577;
   --rose:#e8588d; --deep:#b1316a; --blush:#ffd9e6; --petal:#fbbfd4; --line:#f6d3e0;
   --serif:'Fraunces',Georgia,serif; --sans:'Figtree',system-ui,sans-serif;
@@ -77,6 +78,35 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 @media (hover:none){.bubble{display:none}}
 @media (prefers-reduced-motion:reduce){.panel{animation:none}.bubble{display:none}html{scroll-behavior:auto}}
 @media (max-width:600px){.hero{padding-top:36px}.card{padding:20px}}
+
+/* podcasts */
+.pods{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.pod{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 8px 24px rgba(177,49,106,.06);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.pod:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(177,49,106,.16)}
+.cover{position:relative;display:block;aspect-ratio:1/1;background:linear-gradient(135deg,var(--petal),var(--rose));overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.pod:hover .cover img{transform:scale(1.05)}
+.play{position:absolute;right:14px;bottom:14px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--deep);display:grid;place-items:center;box-shadow:0 8px 20px rgba(59,30,43,.3);transition:transform .2s,background .2s,color .2s}
+.play svg{width:15px;height:15px;margin-left:2px}
+.cover:hover .play{transform:scale(1.12);background:var(--rose);color:#fff}
+.pod .info{padding:18px 22px 22px}
+.pod .role{color:var(--deep);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+.pod p{margin:6px 0 10px}
+.pod .on{font-size:.85rem;color:var(--muted)}
+
+/* languages */
+.langs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.lang{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 20px;box-shadow:0 6px 18px rgba(177,49,106,.05)}
+.lang b{font-family:var(--serif);font-size:1.25rem;font-weight:600}
+.lang .tag{align-self:flex-start}
+
+/* quotes */
+.quote{position:relative;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:22px;padding:24px 28px 20px 34px;margin-bottom:16px;box-shadow:0 8px 24px rgba(177,49,106,.06)}
+.quote p{font-family:var(--serif);font-size:1.25rem;line-height:1.6;margin:0 0 10px;max-width:60ch}
+.quote cite{display:block;font-style:normal;color:var(--deep);font-weight:600}
+.quote small{display:block;color:var(--muted);margin-top:2px}
+.academic .lead{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;max-width:74ch;font-size:1.1rem;margin:0 0 1.6em}
+.academic .lead:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -90,8 +120,8 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
     <p class="where">NOVA University Lisbon &amp; University of Strasbourg</p>
     <div class="chips">
       <a href="mailto:mirnamernanni@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/mirna-ashri/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Mirna-ASHRI" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener">GitHub</a>
       <a href="cv.pdf">CV (PDF)</a>
     </div>
   </div>
@@ -112,7 +142,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   <div class="grid" style="margin-top:22px">
     <div class="card"><div class="stat">3.96/4.00</div>BSc GPA, ranked 7th of 850 students</div>
     <div class="card"><div class="stat">~9,980</div>compounds in my solubility-prediction project</div>
-    <div class="card"><div class="stat">9</div>languages, from native Arabic to HSK1 Mandarin</div>
+    <div class="card"><div class="stat">8</div>languages, from native Arabic to HSK1 Mandarin</div>
   </div>
 </section>
 
@@ -285,14 +315,19 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
     </article>
   </div>
 </section>
-  
+
 <section class="panel" id="languages" data-title="Languages">
   <h2>Languages</h2>
-  <div class="grid">
-    <div class="card"><h3>Native</h3><div class="tags"><span class="tag">Arabic</span></div></div>
-    <div class="card"><h3>Advanced: C1</h3><div class="tags"><span class="tag">English</span><span class="tag">French</span><span class="tag">German</span></div></div>
-    <div class="card"><h3>Intermediate: B2</h3><div class="tags"><span class="tag">Spanish</span><span class="tag">Italian</span></div></div>
-    <div class="card"><h3>Basic</h3><div class="tags"><span class="tag">Turkish A2</span><span class="tag">Portuguese A2</span><span class="tag">Mandarin HSK1</span></div></div>
+  <div class="langs">
+    <div class="lang"><b>Arabic</b><span class="tag">Native</span></div>
+    <div class="lang"><b>English</b><span class="tag">Advanced · C1</span></div>
+    <div class="lang"><b>French</b><span class="tag">Advanced · C1</span></div>
+    <div class="lang"><b>German</b><span class="tag">Advanced · C1</span></div>
+    <div class="lang"><b>Spanish</b><span class="tag">Intermediate · B1</span></div>
+    <div class="lang"><b>Italian</b><span class="tag">Intermediate · B1</span></div>
+    <div class="lang"><b>Turkish</b><span class="tag">Basic · A2</span></div>
+    <div class="lang"><b>Portuguese</b><span class="tag">Basic · A2</span></div>
+    <div class="lang"><b>Chinese (Mandarin)</b><span class="tag">Basic · HSK1</span></div>
   </div>
 </section>
 
@@ -316,10 +351,12 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 
 <section class="panel" id="quotes" data-title="Favorite quotes">
   <h2>Favorite Quotes</h2>
-  <div class="empty">My favorite quotes will appear here soon.</div>
-  <!-- To add a quote, copy this block above the "empty" box and delete the box:
-  <div class="card"><p class="lead">“Your quote here.”</p><p class="sub">Author</p></div>
-  -->
+  <blockquote class="quote"><p>“It is impossible for a man to learn what he thinks he already knows.”</p><cite>Epictetus</cite><small>Commonly attributed; wording varies.</small></blockquote>
+  <blockquote class="quote"><p>“You have power over your mind, not outside events.”</p><cite>Marcus Aurelius</cite><small>Adapted from <i>Meditations</i>.</small></blockquote>
+  <blockquote class="quote"><p lang="de">„Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Urteile über die Dinge.“</p><cite>Epiktet</cite><small><i>Handbüchlein der Moral</i>, §5 (German rendering).</small></blockquote>
+  <blockquote class="quote"><p lang="la">Vince te ipsum.</p><cite>Conquer yourself.</cite><small>A traditional Latin maxim, not a uniquely Stoic quotation.</small></blockquote>
+  <blockquote class="quote"><p lang="la">Sustine et abstine.</p><cite>Bear and forbear.</cite><small>A maxim associated with Epictetus and Stoic practice.</small></blockquote>
+  <!-- To add a quote, copy one <blockquote> above and edit the text. -->
 </section>
 
 <section class="panel" id="blog" data-title="Blog">
@@ -331,7 +368,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   <h2>Contact</h2>
   <div class="grid">
     <div class="card"><h3>Email</h3><p><a href="mailto:mirnamernanni@gmail.com">mirnamernanni@gmail.com</a><br><a href="mailto:m.ashri@campus.fct.unl.pt">m.ashri@campus.fct.unl.pt</a><br><a href="mailto:mirna.ashri@etu.unistra.fr">mirna.ashri@etu.unistra.fr</a></p></div>
-    <div class="card"><h3>Other Platforms</h3><p><a href="https://www.linkedin.com/in/mirna-ashri/" target="_blank" rel="noopener">LinkedIn</a><br><a href="https://github.com/Mirna-ASHRI" target="_blank" rel="noopener">GitHub</a><br><a href="cv.pdf">Download CV (PDF)</a></p></div>
+    <div class="card"><h3>Elsewhere</h3><p><a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a><br><a href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener">GitHub</a><br><a href="cv.pdf">Download CV (PDF)</a></p></div>
     <div class="card"><h3>Phone</h3><p>+351 963 328 733</p></div>
   </div>
 </section>
