@@ -252,6 +252,36 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   
 <section class="panel" id="projects" data-title="Projects">
   <h2>Projects</h2>
+
+    <div class="card">
+    <h3>Prioritised Non-Target Screening as an Early-Warning Proxy (RhineScan)</h3>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">LC-HRMS/MS</span>
+      <span class="tag">pyOpenMS</span>
+      <span class="tag">RDKit</span>
+      <span class="tag">MassBank</span>
+      <span class="tag">matchms</span>
+      <span class="tag">Cheminformatics</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">Environmental Analysis</span>
+    </div>
+    <ul>
+      <li>Developed an end-to-end prioritised non-target analysis (pNTA) workflow for LC-HRMS/MS data from eight sampling sites along the Rhine, incorporating four laboratory blanks.</li>
+      <li>Implemented feature detection, cross-sample grouping, re-quantification, blank filtering, intensity normalisation, isotope/adduct handling and downstream trend analysis using pyOpenMS and Python.</li>
+      <li>Performed suspect screening of 29 compounds, structure verification with RDKit and PubChem, and spectral matching against MassBank using matchms, with identification confidence assessed according to Schymanski et al. (2014).</li>
+      <li>Developed homologous-series detection, MS/MS fragmentation checks and prioritisation strategies to investigate potential chemical input patterns along the river.</li>
+      <li>Benchmarked machine-learning release detectors against rule-based approaches using simulated chemical release events and group-aware cross-validation.</li>
+      <li>Identified 21 features with significant downstream trends (BH q &lt; 0.05) and investigated spatial signal patterns, including a cluster of features exhibiting a step change at Worms.</li>
+      <li>Designed the workflow as a methodological prototype for environmental chemical surveillance, explicitly evaluating its limitations as a spatial-gradient proxy rather than a validated early-warning system.</li>
+    </ul>
+    <p>
+      <strong>Resources:</strong>
+      <a href="https://github.com/Mirna-ASHRI/RhineScan" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/Mirna-ASHRI/RhineScan#limitations" target="_blank" rel="noopener noreferrer">Methodological limitations</a>
+    </p>
+  </div>
   <div class="card">
     <h3>Aqueous Solubility Prediction Using Hybrid Molecular Representations</h3>
     <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">Streamlit</span></div>
