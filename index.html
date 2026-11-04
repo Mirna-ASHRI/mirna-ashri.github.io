@@ -131,6 +131,27 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 .card li,.proj li,.card p,.proj p{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
 .card .sub,.proj .sub,.card .head,.pod p,.doc{text-align:left}
 @media (max-width:600px){.card li,.proj li,.card p,.proj p{text-align:left}}
+  /* centered hero */
+.hero{flex-direction:column;justify-content:center;text-align:center;gap:18px;padding:56px 0 20px}
+.chips{justify-content:center}
+
+/* tab bar with arrows (carousel) */
+.tabwrap{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:10px 0;margin-bottom:8px;background:linear-gradient(var(--bg) 80%,transparent)}
+.tabs{position:static;flex:1;min-width:0;margin:0;padding:6px 4px;background:none;scroll-behavior:smooth}
+.tabs>.tab:first-child{margin-left:auto}
+.tabs>.tab:last-child{margin-right:auto}
+.arrow{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--deep);display:grid;place-items:center;box-shadow:0 6px 16px rgba(177,49,106,.12);transition:background .2s,color .2s,opacity .2s}
+.arrow:hover:not(:disabled){background:var(--rose);color:#fff}
+.arrow:disabled{opacity:.35;cursor:default}
+
+/* about: stats and section headings */
+.stats{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.sec{font-size:1.6rem;margin:30px 0 14px}
+
+/* project video and buttons */
+.vid{width:100%;border-radius:16px;margin-top:16px;background:#000;display:block}
+.gh{margin-right:8px}
+.event{display:inline-block;margin:8px 0 0;padding:4px 14px;border-radius:999px;background:var(--blush);color:var(--deep);font-size:.84rem;font-weight:600}
 </style>
   
 </head>
@@ -153,7 +174,11 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   </div>
 </header>
 
-<nav class="tabs" role="tablist" aria-label="Sections"></nav>
+<div class="tabwrap">
+  <button class="arrow" id="tabPrev" aria-label="Previous tabs"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <nav class="tabs" role="tablist" aria-label="Sections"></nav>
+  <button class="arrow" id="tabNext" aria-label="Next tabs"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
 
 <main>
 
@@ -165,19 +190,28 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
     <p class="lead">My curiosity is broad but connected. I am deeply interested in science, coding, chemistry, neuroscience, bioinformatics and pharmaceutical drug development. What draws me to these fields is the places where they overlap, such as quantum chemistry, laboratory work and a well-written Python script all helping to answer the same question.</p>
     <p class="lead">Outside the lab, I have worked on many youth projects, from leading international volunteer teams in European associations to organising events and hosting podcasts. These experiences taught me to collaborate across countries and time zones and to explain science to people who did not expect to find it interesting. I bring the same mix of curiosity, teamwork and openness to everything I do.</p>
   </div>
-  <div class="grid" style="margin-top:22px">
-    <div class="card"><div class="stat">3.96/4.00</div>BSc GPA, ranked 7th of 850 students</div>
-    <div class="card"><div class="stat">~9,980</div>compounds in my solubility-prediction project</div>
-    <div class="card"><div class="stat">9</div>languages, from advanced English, French, and German to HSK1 Mandarin</div>
-  </div>
-</section>
 
-<section class="panel" id="summary" data-title="Summary">
-  <h2>Summary</h2>
+  <h2 class="sec">Academic Summary</h2>
   <div class="academic">
     <p class="lead">I am an Erasmus Mundus Joint Master’s student in Chemoinformatics+ at NOVA University Lisbon and the University of Strasbourg, specialising in organic chemistry. I hold a BSc in Pharmaceutical Sciences from Mansoura University (GPA 3.96/4.00, ranked 7th among 850 students), and my training combines quantum chemistry, DFT calculations and physical organic chemistry with applied machine learning.</p>
     <p class="lead">My research centres on QSAR/QSPR modelling and the question of how molecular representation shapes what a model can learn. At LAQV-REQUIMTE (NOVA FCT) I develop machine-learning models for molecular activity, compare descriptors and fingerprints, analyse chemical space, and use validation and applicability-domain analysis to establish where predictions can be trusted. I complement this with virtual screening, molecular docking and reproducible Python/RDKit workflows. In parallel, I synthesised and characterised pharmaceutical ionic liquids (NMR, ATR-FTIR, DSC), which grounds my computational work in measurable physicochemical behaviour.</p>
     <p class="lead">I have applied these skills in independent projects, including a solubility-prediction study on roughly 9,980 compounds, presented as a poster at the 2026 Strasbourg Summer School on Chemoinformatics, and in Kaggle competitions on photostability and mass-spectra-based structure prediction. I also work as a teaching and research assistant in analytical chemistry at Mansoura University and have led international volunteer teams in European associations. My master’s thesis on computational fragment screening is planned at the University of Münster, and I aim to pursue a PhD in data-efficient machine learning and DFT for the design of sustainable catalytic materials.</p>
+  </div>
+
+  <h2 class="sec">At a Glance</h2>
+  <div class="grid stats">
+    <div class="card"><div class="stat">3.96/4.00</div>BSc GPA</div>
+    <div class="card"><div class="stat">7th / 850</div>class rank, Pharmaceutical Sciences</div>
+    <div class="card"><div class="stat">9</div>languages, from native Arabic to HSK1 Mandarin</div>
+    <div class="card"><div class="stat">5</div>computational projects</div>
+    <div class="card"><div class="stat">2</div>research internships at LAQV-REQUIMTE</div>
+    <div class="card"><div class="stat">~9,980</div>compounds in my solubility-prediction project</div>
+    <div class="card"><div class="stat">8</div>Rhine sampling sites analysed by LC-HRMS/MS</div>
+    <div class="card"><div class="stat">29</div>suspect compounds screened in RhineScan</div>
+    <div class="card"><div class="stat">21</div>features with significant downstream trends</div>
+    <div class="card"><div class="stat">~150</div>molecular features modelled in a Kaggle challenge</div>
+    <div class="card"><div class="stat">3</div>podcast shows as host or guest</div>
+    <div class="card"><div class="stat">3</div>volunteering and leadership roles</div>
   </div>
 </section>
 
@@ -588,6 +622,14 @@ function show(id){
 show(location.hash.slice(1)||'about');
 document.getElementById('yr').textContent=new Date().getFullYear();
 
+// tab arrows
+const prev=document.getElementById('tabPrev'), next=document.getElementById('tabNext');
+const step=()=>Math.max(200,nav.clientWidth*.6);
+prev.onclick=()=>nav.scrollBy({left:-step(),behavior:'smooth'});
+next.onclick=()=>nav.scrollBy({left:step(),behavior:'smooth'});
+function arrows(){prev.disabled=nav.scrollLeft<=2;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-2}
+nav.addEventListener('scroll',arrows);addEventListener('resize',arrows);arrows();
+  
 // bubbles that fizz behind the test-tube cursor
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
   let last=0;
