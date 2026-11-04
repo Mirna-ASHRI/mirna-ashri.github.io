@@ -152,6 +152,18 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 .vid{width:100%;border-radius:16px;margin-top:16px;background:#000;display:block}
 .gh{margin-right:8px}
 .event{display:inline-block;margin:8px 0 0;padding:4px 14px;border-radius:999px;background:var(--blush);color:var(--deep);font-size:.84rem;font-weight:600}
+  /* video thumbnail link */
+.vlink{position:relative;display:block;margin-top:16px;border-radius:16px;overflow:hidden;aspect-ratio:16/9;background:linear-gradient(135deg,var(--petal),var(--rose))}
+.vlink img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.vlink:hover img{transform:scale(1.03)}
+.vlink .play{right:auto;bottom:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px}
+.vlink .play svg{width:22px;height:22px}
+.vlink:hover .play{transform:translate(-50%,-50%) scale(1.1);background:var(--rose);color:#fff}
+.vcap{position:absolute;left:14px;bottom:12px;background:rgba(255,255,255,.92);color:var(--deep);font-size:.8rem;font-weight:600;padding:3px 12px;border-radius:999px}
+
+/* project report pictures */
+.rep{display:block;width:100%;border-radius:14px;border:1px solid var(--line);margin-top:16px;transition:box-shadow .25s}
+.rep:hover{box-shadow:0 10px 24px rgba(177,49,106,.2)}
 </style>
   
 </head>
@@ -268,6 +280,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
       <li>Run virtual screening and molecular docking to study molecular interactions and prioritise candidate compounds.</li>
       <li>Build reproducible Python/RDKit workflows for data preparation, modelling, validation and analysis.</li>
     </ul>
+     <a class="doc" href="ri1.jpg" target="_blank" rel="noopener"><span class="thumb"><img src="ri1.jpg" alt="ri1" onerror="this.style.display='none'"></span>Photos ↗</a>
   </div>
   <div class="card">
     <div class="head"><h3>Research Intern, Pharmaceutical Ionic Liquids</h3><span class="date">Jun 2026 – Jul 2026</span></div>
@@ -331,6 +344,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
         <li>Designed the workflow as a methodological prototype for environmental chemical surveillance, explicitly evaluating its limitations as a spatial-gradient proxy rather than a validated early-warning system.</li>
       </ul>
       <p><strong>Resources:</strong> <a href="https://github.com/Mirna-ASHRI/RhineScan" target="_blank" rel="noopener">GitHub repository</a> | <a href="https://github.com/Mirna-ASHRI/RhineScan#limitations" target="_blank" rel="noopener">Methodological limitations</a></p>
+      <a href="rhinescan-report.jpg" target="_blank" rel="noopener"><img class="rep" src="rhinescan-report.jpg" alt="RhineScan report" onerror="this.style.display='none'"></a>
     </div>
   </details>
 
@@ -351,12 +365,12 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
         <li>The agent works in rounds: it generates candidates with STONED SELFIES, predicts the target property with GFN2-xTB and a CatBoost model, screens candidates against the target window, validates the most promising ones with ORCA quantum chemistry, and curates the verified molecules with SMILES, 3D structures and multi-level properties.</li>
         <li>A fast language model (Claude Haiku 4.5) plans each round and decides when to stop, while rule-based fallbacks and fixed budgets keep every run controlled and reproducible.</li>
         <li>The workflow is orchestrated with LangGraph and includes a web app and an HTTP API for starting and monitoring runs, plus a batch command for property calculations.</li>
-        <!-- <li>My contribution: describe your part of the project here.</li> -->
       </ul>
-      <video class="vid" controls preload="metadata" playsinline>
-        <source src="molcuratorvideo.mp4" type="video/mp4">
-        Your browser does not support embedded video.
-      </video>
+        <a class="vlink" href="https://lnkd.in/p/e52cFMGS" target="_blank" rel="noopener" aria-label="Watch the MolCurator demo video">
+        <img src="molcuratorvid.jpg" alt="MolCurator demo video" onerror="this.style.display='none'">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="vcap">Watch the demo on LinkedIn ↗</span>
+      </a>
     </div>
   </details>
 
@@ -365,7 +379,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
       <div class="ptop">
         <h3>Molecular Data Machine Learning: Kaggle competition (MMLI / UIUC)</h3>
         <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">QSAR</span><span class="tag">Feature selection</span><span class="tag">Symbolic regression</span></div>
-        <!-- <a class="gh" href="https://github.com/Mirna-ASHRI/REPO-NAME" target="_blank" rel="noopener">GitHub ↗</a> -->
+        <a class="gh" href="https://github.com/Mirna-ASHRI/MolecularDataMachineLearningProject" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
       <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
     </summary>
