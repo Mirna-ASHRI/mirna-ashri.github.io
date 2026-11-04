@@ -109,6 +109,26 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 .academic .lead{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;max-width:none;width:100%;font-size:1.08rem;margin:0 0 1.5em}
 .academic .lead:last-child{margin-bottom:0}
 @media (max-width:600px){.academic{padding:22px}.academic .lead{text-align:left}}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:22px;margin-bottom:16px;box-shadow:0 8px 24px rgba(177,49,106,.06);overflow:hidden;transition:box-shadow .25s}
+.proj:hover,.proj[open]{box-shadow:0 14px 32px rgba(177,49,106,.14)}
+.proj summary{list-style:none;cursor:var(--flask);padding:22px 26px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.proj summary::-webkit-details-marker{display:none}
+.proj .ptop{flex:1;min-width:0}
+.chev{flex:none;width:36px;height:36px;border-radius:50%;background:var(--blush);color:var(--deep);display:grid;place-items:center;transition:transform .3s,background .2s,color .2s}
+.proj[open] .chev{transform:rotate(180deg);background:var(--rose);color:#fff}
+.proj summary:hover .chev{background:var(--rose);color:#fff}
+.proj .body{padding:4px 26px 24px;border-top:1px dashed var(--petal)}
+.proj ul{margin:14px 0 0;padding-left:20px}
+.proj li{margin:6px 0;max-width:74ch}
+.proj li::marker{color:var(--rose)}
+.gh{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:var(--deep);color:#fff;font-size:.82rem;font-weight:600;text-decoration:none;transition:background .2s}
+.gh:hover{background:var(--rose)}
+.hint{color:var(--muted);font-size:.9rem;margin:-6px 0 16px}
+.docs{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+.doc{width:170px;text-decoration:none;color:var(--deep);font-size:.82rem;font-weight:600;display:block}
+.doc .thumb{display:block;aspect-ratio:4/3;border-radius:14px;border:1px solid var(--line);background:linear-gradient(135deg,var(--blush),var(--petal));overflow:hidden;margin-bottom:6px;transition:transform .25s,box-shadow .25s}
+.doc img{width:100%;height:100%;object-fit:cover;display:block}
+.doc:hover .thumb{transform:translateY(-3px);box-shadow:0 10px 22px rgba(177,49,106,.2)}
 </style>
   
 </head>
@@ -252,61 +272,82 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   
 <section class="panel" id="projects" data-title="Projects">
   <h2>Projects</h2>
+  <p class="hint">Click a project to see the details.</p>
 
-    <div class="card">
-    <h3>Prioritised Non-Target Screening as an Early-Warning Proxy (RhineScan)</h3>
-    <div class="tags">
-      <span class="tag">Python</span>
-      <span class="tag">LC-HRMS/MS</span>
-      <span class="tag">pyOpenMS</span>
-      <span class="tag">RDKit</span>
-      <span class="tag">MassBank</span>
-      <span class="tag">matchms</span>
-      <span class="tag">Cheminformatics</span>
-      <span class="tag">Machine Learning</span>
-      <span class="tag">Environmental Analysis</span>
+  <details class="proj">
+    <summary>
+      <div class="ptop">
+        <h3>Prioritised Non-Target Screening as an Early-Warning Proxy (RhineScan)</h3>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LC-HRMS/MS</span><span class="tag">pyOpenMS</span><span class="tag">RDKit</span><span class="tag">MassBank</span><span class="tag">matchms</span><span class="tag">Cheminformatics</span><span class="tag">Machine Learning</span><span class="tag">Environmental Analysis</span></div>
+        <a class="gh" href="https://github.com/Mirna-ASHRI/RhineScan" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </summary>
+    <div class="body">
+      <ul>
+        <li>Developed an end-to-end prioritised non-target analysis (pNTA) workflow for LC-HRMS/MS data from eight sampling sites along the Rhine, incorporating four laboratory blanks.</li>
+        <li>Implemented feature detection, cross-sample grouping, re-quantification, blank filtering, intensity normalisation, isotope/adduct handling and downstream trend analysis using pyOpenMS and Python.</li>
+        <li>Performed suspect screening of 29 compounds, structure verification with RDKit and PubChem, and spectral matching against MassBank using matchms, with identification confidence assessed according to Schymanski et al. (2014).</li>
+        <li>Developed homologous-series detection, MS/MS fragmentation checks and prioritisation strategies to investigate potential chemical input patterns along the river.</li>
+        <li>Benchmarked machine-learning release detectors against rule-based approaches using simulated chemical release events and group-aware cross-validation.</li>
+        <li>Identified 21 features with significant downstream trends (BH q &lt; 0.05) and investigated spatial signal patterns, including a cluster of features exhibiting a step change at Worms.</li>
+        <li>Designed the workflow as a methodological prototype for environmental chemical surveillance, explicitly evaluating its limitations as a spatial-gradient proxy rather than a validated early-warning system.</li>
+      </ul>
+      <p><strong>Resources:</strong> <a href="https://github.com/Mirna-ASHRI/RhineScan" target="_blank" rel="noopener">GitHub repository</a> | <a href="https://github.com/Mirna-ASHRI/RhineScan#limitations" target="_blank" rel="noopener">Methodological limitations</a></p>
     </div>
-    <ul>
-      <li>Developed an end-to-end prioritised non-target analysis (pNTA) workflow for LC-HRMS/MS data from eight sampling sites along the Rhine, incorporating four laboratory blanks.</li>
-      <li>Implemented feature detection, cross-sample grouping, re-quantification, blank filtering, intensity normalisation, isotope/adduct handling and downstream trend analysis using pyOpenMS and Python.</li>
-      <li>Performed suspect screening of 29 compounds, structure verification with RDKit and PubChem, and spectral matching against MassBank using matchms, with identification confidence assessed according to Schymanski et al. (2014).</li>
-      <li>Developed homologous-series detection, MS/MS fragmentation checks and prioritisation strategies to investigate potential chemical input patterns along the river.</li>
-      <li>Benchmarked machine-learning release detectors against rule-based approaches using simulated chemical release events and group-aware cross-validation.</li>
-      <li>Identified 21 features with significant downstream trends (BH q &lt; 0.05) and investigated spatial signal patterns, including a cluster of features exhibiting a step change at Worms.</li>
-      <li>Designed the workflow as a methodological prototype for environmental chemical surveillance, explicitly evaluating its limitations as a spatial-gradient proxy rather than a validated early-warning system.</li>
-    </ul>
-    <p>
-      <strong>Resources:</strong>
-      <a href="https://github.com/Mirna-ASHRI/RhineScan" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-      &nbsp;|&nbsp;
-      <a href="https://github.com/Mirna-ASHRI/RhineScan#limitations" target="_blank" rel="noopener noreferrer">Methodological limitations</a>
-    </p>
-  </div>
-  <div class="card">
-    <h3>Aqueous Solubility Prediction Using Hybrid Molecular Representations</h3>
-    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">Streamlit</span></div>
-    <ul>
-      <li>Built machine-learning models for aqueous solubility using approximately 9,980 compounds.</li>
-      <li>Combined Morgan fingerprints with physicochemical descriptors to study the effect of molecular representation on prediction.</li>
-      <li>Trained and evaluated Random Forest and XGBoost models and analysed structure–property relationships.</li>
-      <li>Developed a Streamlit app for molecular property prediction from SMILES input.</li>
-      <li>Presented as a poster at the 2026 Strasbourg Summer School on Chemoinformatics.</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Molecular Data Machine Learning: Kaggle competition (MMLI / UIUC)</h3>
-    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">QSAR</span><span class="tag">Feature selection</span><span class="tag">Symbolic regression</span></div>
-    <ul>
-      <li>Predicted experimental photostability lifetimes (T80) from ~150 molecular features using Ridge regression and Random Forest.</li>
-      <li>Assessed generalisation with repeated K-fold cross-validation and MSLE; compared full and reduced feature sets (SelectKBest).</li>
-      <li>Investigated feature relevance with correlation analysis, permutation importance, Lasso and symbolic regression to obtain interpretable structure–property relationships.</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Enveda CASMI 2026: Molecule ID from Mass Spectra (Kaggle) <span class="badge">In progress</span></h3>
-    <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">LC-MS/MS</span><span class="tag">Machine learning</span><span class="tag">Structure prediction</span></div>
-    <ul><li>Machine-learning models for predicting molecular structures from tandem mass spectra.</li></ul>
-  </div>
+  </details>
+
+  <details class="proj">
+    <summary>
+      <div class="ptop">
+        <h3>Aqueous Solubility Prediction Using Hybrid Molecular Representations</h3>
+        <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">Streamlit</span></div>
+        <!-- <a class="gh" href="https://github.com/Mirna-ASHRI/REPO-NAME" target="_blank" rel="noopener">GitHub ↗</a> -->
+      </div>
+      <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </summary>
+    <div class="body">
+      <ul>
+        <li>Built machine-learning models for aqueous solubility using approximately 9,980 compounds.</li>
+        <li>Combined Morgan fingerprints with physicochemical descriptors to study the effect of molecular representation on prediction.</li>
+        <li>Trained and evaluated Random Forest and XGBoost models and analysed structure–property relationships.</li>
+        <li>Developed a Streamlit app for molecular property prediction from SMILES input.</li>
+        <li>Presented as a poster at the 2026 Strasbourg Summer School on Chemoinformatics.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="proj">
+    <summary>
+      <div class="ptop">
+        <h3>Molecular Data Machine Learning: Kaggle competition (MMLI / UIUC)</h3>
+        <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">scikit-learn</span><span class="tag">QSAR</span><span class="tag">Feature selection</span><span class="tag">Symbolic regression</span></div>
+        <!-- <a class="gh" href="https://github.com/Mirna-ASHRI/REPO-NAME" target="_blank" rel="noopener">GitHub ↗</a> -->
+      </div>
+      <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </summary>
+    <div class="body">
+      <ul>
+        <li>Predicted experimental photostability lifetimes (T80) from ~150 molecular features using Ridge regression and Random Forest.</li>
+        <li>Assessed generalisation with repeated K-fold cross-validation and MSLE; compared full and reduced feature sets (SelectKBest).</li>
+        <li>Investigated feature relevance with correlation analysis, permutation importance, Lasso and symbolic regression to obtain interpretable structure–property relationships.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="proj">
+    <summary>
+      <div class="ptop">
+        <h3>Enveda CASMI 2026: Molecule ID from Mass Spectra (Kaggle) <span class="badge">In progress</span></h3>
+        <div class="tags"><span class="tag">Python</span><span class="tag">RDKit</span><span class="tag">LC-MS/MS</span><span class="tag">Machine learning</span><span class="tag">Structure prediction</span></div>
+        <!-- <a class="gh" href="https://github.com/Mirna-ASHRI/REPO-NAME" target="_blank" rel="noopener">GitHub ↗</a> -->
+      </div>
+      <span class="chev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </summary>
+    <div class="body">
+      <ul><li>Machine-learning models for predicting molecular structures from tandem mass spectra.</li></ul>
+    </div>
+  </details>
 </section>
 
 <section class="panel" id="publications" data-title="Publications">
@@ -435,15 +476,26 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
     <div class="head"><h3>XXXI Symposium on Bioinformatics and Computer-Aided Drug Discovery (BCADD-2026)</h3><span class="date">1 – 21 Oct 2026</span></div>
     <p class="sub">Online</p>
     <ul><li>E-Poster Session of the Symposium, featuring 69 posters selected by the international scientific committee.</li></ul>
+    <div class="docs">
+      <a class="doc" href="bcadd-poster.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="bcadd-poster.jpeg" alt="BCADD-2026 poster" onerror="this.style.display='none'"></span>Poster ↗</a>
+      <a class="doc" href="bcadd-certificate.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="bcadd-certificate.jpeg" alt="BCADD-2026 certificate" onerror="this.style.display='none'"></span>Certificate ↗</a>
+    </div>
   </div>
   <div class="card">
     <div class="head"><h3>The Strasbourg Summer School in Chemoinformatics (CS3)</h3><span class="date">22 – 26 Jun 2026</span></div>
     <p class="sub">Strasbourg, France</p>
     <ul><li>Poster presentation: <i>Aqueous Solubility Prediction Using Hybrid Molecular Representations</i>.</li></ul>
+    <div class="docs">
+      <a class="doc" href="cs3-poster.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="cs3-poster.jpeg" alt="CS3 poster" onerror="this.style.display='none'"></span>Poster ↗</a>
+      <a class="doc" href="cs3-certificate.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="cs3-certificate.jpeg" alt="CS3 certificate" onerror="this.style.display='none'"></span>Certificate ↗</a>
+    </div>
   </div>
   <div class="card">
     <div class="head"><h3>Seventh Hybrid Scientific Conference of Pharmaceutical Analytical Chemistry</h3><span class="date">Dec 2021</span></div>
     <p class="sub">Mansoura University, Egypt</p>
+    <div class="docs">
+      <a class="doc" href="pac-certificate.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="pac-certificate.jpeg" alt="Conference certificate" onerror="this.style.display='none'"></span>Certificate ↗</a>
+    </div>
   </div>
 </section>
 
@@ -465,9 +517,21 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   
 <section class="panel" id="awards" data-title="Awards">
   <h2>Awards &amp; Recognitions</h2>
-  <div class="card"><div class="head"><h3>Ideal Student Competition, All Egyptian Universities</h3><span class="date">2022</span></div><p class="sub">Third place</p></div>
-  <div class="card"><div class="head"><h3>Al-Abakera Families Program Show, Season 2</h3><span class="date">2020</span></div><p class="sub">First place</p></div>
-  <div class="card"><div class="head"><h3>Poster presenter</h3><span class="date">2026</span></div><p class="sub">Strasbourg Summer School on Chemoinformatics</p></div>
+  <div class="card">
+    <div class="head"><h3>Ideal Student Competition, All Egyptian Universities</h3><span class="date">2022</span></div>
+    <p class="sub">Third place</p>
+    <div class="docs"><a class="doc" href="ideal-student-certificate.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="ideal-student-certificate.jpeg" alt="Ideal Student certificate" onerror="this.style.display='none'"></span>Certificate ↗</a></div>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Al-Abakera Families Program Show, Season 2</h3><span class="date">2020</span></div>
+    <p class="sub">First place</p>
+    <div class="docs"><a class="doc" href="abakera-certificate.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="abakera-certificate.jpeg" alt="Al-Abakera certificate" onerror="this.style.display='none'"></span>Certificate ↗</a></div>
+  </div>
+  <div class="card">
+    <div class="head"><h3>Poster presenter</h3><span class="date">2026</span></div>
+    <p class="sub">Strasbourg Summer School on Chemoinformatics</p>
+    <div class="docs"><a class="doc" href="cs3-poster.jpeg" target="_blank" rel="noopener"><span class="thumb"><img src="cs3-poster.jpeg" alt="CS3 poster" onerror="this.style.display='none'"></span>Poster ↗</a></div>
+  </div>
 </section>
 
 <section class="panel" id="quotes" data-title="Favorite quotes">
