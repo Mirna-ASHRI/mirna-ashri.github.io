@@ -191,6 +191,13 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 </head>
 <body>
 <div class="shell">
+  <div class="ctrl">
+  <select id="lang" aria-label="Language">
+    <option value="en">EN</option>
+    <option value="fr">FR</option>
+  </select>
+  <button id="theme" aria-label="Dark mode">🌙</button>
+</div>
 <header class="hero">
   <div class="avatar">
     <img src="Formal-Photo-ASHRI-Mirna.jpg" alt="Mirna Ashri">
@@ -846,6 +853,21 @@ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
   });
 }
 </script>
-<script src="i18n.js"></script>
+<script src="fr.js"></script>
+<script>
+(function(){
+  var sel=document.getElementById('lang'), root=document.documentElement;
+  function setLang(l){ setLanguage(l); sel.value=l; try{localStorage.setItem('lang',l)}catch(e){} }
+  sel.addEventListener('change',function(){ setLang(sel.value) });
+  var saved='en'; try{ saved=localStorage.getItem('lang')||((navigator.language||'').slice(0,2)==='fr'?'fr':'en') }catch(e){}
+  if(saved==='fr') setLang('fr');
+
+  var tb=document.getElementById('theme');
+  function setTheme(t){ root.setAttribute('data-theme',t); tb.textContent=t==='dark'?'☀️':'🌙'; try{localStorage.setItem('theme',t)}catch(e){} }
+  tb.addEventListener('click',function(){ setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark') });
+  var th='light'; try{ th=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light') }catch(e){}
+  setTheme(th);
+})();
+</script>
 </body>
 </html>
