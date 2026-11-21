@@ -192,10 +192,6 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
 <body>
 <div class="shell">
   <div class="ctrl">
-  <select id="lang" aria-label="Language">
-    <option value="en">EN</option>
-    <option value="fr">FR</option>
-  </select>
   <button id="theme" aria-label="Dark mode">🌙</button>
 </div>
 <header class="hero">
@@ -853,12 +849,9 @@ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
   });
 }
 </script>
-<script src="fr.js"></script>
 <script>
 (function(){
   var root = document.documentElement;
-
-  /* Theme first, so it works even if fr.js fails to load */
   var tb = document.getElementById('theme');
   function setTheme(t){
     root.setAttribute('data-theme', t);
@@ -871,25 +864,6 @@ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
   var th = 'light';
   try { th = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch(e){}
   setTheme(th);
-
-  /* Language */
-  var sel = document.getElementById('lang');
-  function setLang(l){
-    if (typeof window.setLanguage !== 'function') {
-      console.error('fr.js did not load: check its name, location and cache.');
-      return;
-    }
-    window.setLanguage(l);
-    sel.value = l;
-    try { localStorage.setItem('lang', l); } catch(e){}
-  }
-  sel.addEventListener('change', function(){ setLang(sel.value); });
-
-  var saved = 'en';
-  try {
-    saved = localStorage.getItem('lang') || ((navigator.language || '').slice(0,2) === 'fr' ? 'fr' : 'en');
-  } catch(e){}
-  if (saved === 'fr') setLang('fr');
 })();
 </script>
 </body>
